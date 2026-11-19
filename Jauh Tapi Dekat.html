@@ -1,0 +1,226 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Jauh Tapi Dekat</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: satu kolom, lima kartu berurutan (hitung hari, amplop, ide malam ini, tebak-tebakan, pesan balik). Pink-hitam, kelopak jatuh pelan. */
+:root {
+  --bg: #0b0309;
+  --bg-mid: #3a0a22;
+  --bg-hot: #b0245f;
+  --ink: #fff0f6;
+  --ink-soft: #f7c6dc;
+  --pink: #ff7eb6;
+  --pink-deep: #e0407f;
+  --glow: rgba(255, 126, 182, 0.5);
+  --card: rgba(20, 4, 12, 0.62);
+  --card-line: rgba(255, 150, 200, 0.28);
+  --font-display: "Pacifico", "Brush Script MT", cursive;
+  --font-body: "Quicksand", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+html, body { min-height: 100%; }
+body {
+  background: var(--bg);
+  background-image: linear-gradient(165deg, var(--bg) 0%, var(--bg-mid) 55%, var(--bg-hot) 150%);
+  background-attachment: fixed;
+  color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.65;
+  padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  overflow-x: hidden;
+}
+#fx { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+main { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 8vw, 44px); line-height: 1.35; text-wrap: balance; text-shadow: 0 0 22px var(--glow); margin: 0; text-align: center; }
+h2 { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); font-weight: 700; margin: 0; }
+p { margin: 0; }
+.lead { text-align: center; color: var(--ink-soft); }
+section { background: var(--card); border: 1px solid var(--card-line); border-radius: 20px; padding: 20px; backdrop-filter: blur(6px); display: flex; flex-direction: column; gap: 14px; }
+.btn { font: 700 16px var(--font-body); color: #2a0516; border: 0; border-radius: 999px; padding: 12px 22px; cursor: pointer; background: linear-gradient(135deg, #ffb3d4, var(--pink) 55%, var(--pink-deep)); box-shadow: 0 8px 24px rgba(255, 90, 160, 0.35); transition: transform 0.2s; align-self: flex-start; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: scale(0.97); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--card-line); box-shadow: none; }
+.btn.ghost:hover { border-color: var(--pink); }
+.btn.on { background: linear-gradient(135deg, #ffb3d4, var(--pink)); color: #2a0516; border-color: transparent; }
+button:focus-visible, textarea:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; }
+.bubble { background: rgba(255,126,182,0.12); border: 1px dashed var(--card-line); border-radius: 16px; padding: 14px 16px; min-height: 4.4em; overflow-wrap: anywhere; }
+
+/* hitung hari */
+.count { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; text-align: center; }
+.count div { background: rgba(255,126,182,0.12); border: 1px solid var(--card-line); border-radius: 14px; padding: 12px 6px; }
+.count b { display: block; font-size: 30px; line-height: 1.1; color: var(--pink); font-variant-numeric: tabular-nums; }
+.count span { font-size: 13px; color: var(--ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* amplop */
+.letters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.letters .btn { align-self: stretch; text-align: left; }
+
+/* pesan balik */
+.copybox { width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.35); border: 1px solid var(--card-line); border-radius: 14px; color: var(--ink); font: inherit; padding: 12px 14px; resize: none; min-height: 5.2em; }
+.note { font-size: 14px; color: var(--ink-soft); }
+.foot { text-align: center; font-family: var(--font-display); font-size: 24px; line-height: 1.5; text-shadow: 0 0 16px var(--glow); }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<main>
+  <h1>Hai sayaangg, jarak kita jauh tapi hatiku dekat</h1>
+  <p class="lead">Hari ini aku lagi sibuk tugas sampai nanti malam, jadi belum bisa nemenin kamu. Tapi aku nggak lupa sama kamu. Sambil nunggu aku selesai, ketuk-ketuk satu per satu di sini ya.</p>
+
+  <section aria-labelledby="h-hari">
+    <h2 id="h-hari">Sudah berapa lama kita bareng</h2>
+    <div class="count" aria-live="off">
+      <div><b id="cMonth">0</b><span>bulan</span></div>
+      <div><b id="cDay">0</b><span>hari</span></div>
+      <div><b id="cTotal">0</b><span>total hari</span></div>
+    </div>
+    <p class="lead" id="cText"></p>
+  </section>
+
+  <section aria-labelledby="h-amplop">
+    <h2 id="h-amplop">Buka kalau...</h2>
+    <div class="letters" id="letters"></div>
+    <div class="bubble" id="letterBox" aria-live="polite">Pilih satu amplop sesuai yang kamu rasain sekarang.</div>
+  </section>
+
+  <section aria-labelledby="h-ide">
+    <h2 id="h-ide">Selagi nunggu aku selesai</h2>
+    <div class="bubble" id="ideBox" aria-live="polite">Ketuk tombol, nanti aku kasih ide kecil yang bisa kamu lakuin sambil nunggu aku.</div>
+    <button class="btn" type="button" id="ideBtn">Kasih ide</button>
+  </section>
+
+  <section aria-labelledby="h-tebak">
+    <h2 id="h-tebak">Tebak-tebakan receh</h2>
+    <div class="bubble" id="qBox" aria-live="polite">Siap ketawa? Atau minimal senyum tipis.</div>
+    <div class="row">
+      <button class="btn" type="button" id="qBtn">Kasih tebakan</button>
+      <button class="btn ghost" type="button" id="aBtn" hidden>Lihat jawabannya</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-balas">
+    <h2 id="h-balas">Kamu butuh apa dari aku nanti malam?</h2>
+    <p class="note">Aku lagi sibuk tugas sampai malam, tapi pilih aja yang paling pas. Nanti aku buatkan pesan yang tinggal kamu kirim ke aku, dan aku bales begitu tugasku selesai.</p>
+    <div class="row" id="needs"></div>
+    <textarea class="copybox" id="msg" readonly aria-label="Pesan untuk dikirim" placeholder="Pesannya akan muncul di sini"></textarea>
+    <button class="btn" type="button" id="copy" hidden>Salin pesan</button>
+    <p class="note" id="copyNote" aria-live="polite"></p>
+  </section>
+
+  <p class="foot">Apa pun mood kamu, aku tetap sayang kamu.</p>
+</main>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- Latar: kelopak jatuh ---------- */
+  var cv = $("fx"), ctx = cv.getContext("2d"), W = 0, H = 0, petals = [], t = 0;
+  var PINKS = ["#ff7eb6", "#ff9cc8", "#ffb8d6", "#e0407f", "#ffd1e6"];
+  function mk(x, y, burst) { return { x: x, y: y, s: 6 + Math.random() * 9, vy: burst ? -2 - Math.random() * 4 : 0.4 + Math.random() * 0.9, vx: burst ? (Math.random() - 0.5) * 6 : 0, ph: Math.random() * 6.28, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.05, c: PINKS[(Math.random() * PINKS.length) | 0], a: 0.55 + Math.random() * 0.35, burst: !!burst }; }
+  function init() { var d = Math.min(window.devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); petals = []; for (var i = 0; i < Math.max(12, Math.min(32, Math.round(W / 20))); i++) petals.push(mk(Math.random() * W, Math.random() * H)); }
+  function draw(p) { ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.globalAlpha = p.a; ctx.fillStyle = p.c; ctx.beginPath(); ctx.moveTo(0, -p.s); ctx.bezierCurveTo(p.s * 0.9, -p.s * 0.6, p.s * 0.7, p.s * 0.7, 0, p.s); ctx.bezierCurveTo(-p.s * 0.7, p.s * 0.7, -p.s * 0.9, -p.s * 0.6, 0, -p.s); ctx.fill(); ctx.restore(); }
+  function loop() {
+    t++; ctx.clearRect(0, 0, W, H);
+    for (var i = petals.length - 1; i >= 0; i--) {
+      var p = petals[i];
+      if (p.burst) { p.vy += 0.12; p.x += p.vx; p.y += p.vy; if (p.y > H + 30) { petals.splice(i, 1); continue; } }
+      else { p.y += p.vy; p.x += Math.sin(t * 0.02 + p.ph) * 0.5; if (p.y > H + 30) { p.y = -20; p.x = Math.random() * W; } }
+      p.r += p.vr; draw(p);
+    }
+    requestAnimationFrame(loop);
+  }
+  function burst() { if (reduce) return; for (var i = 0; i < 40; i++) petals.push(mk(W / 2, H * 0.55, true)); }
+  init(); addEventListener("resize", init);
+  if (reduce) { for (var q = 0; q < petals.length; q++) draw(petals[q]); } else { requestAnimationFrame(loop); }
+
+  /* ---------- Hitung hari sejak 14 November 2026 ---------- */
+  (function () {
+    var start = new Date(2026, 10, 14), now = new Date();
+    var days = Math.max(0, Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - start) / 86400000));
+    var months = (now.getFullYear() - 2026) * 12 + (now.getMonth() - 10) - (now.getDate() < 14 ? 1 : 0);
+    months = Math.max(0, months);
+    var anchor = new Date(2026, 10 + months, 14);
+    var restDays = Math.max(0, Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - anchor) / 86400000));
+    $("cMonth").textContent = months; $("cDay").textContent = restDays; $("cTotal").textContent = days;
+    $("cText").textContent = days < 30 ? "Kita baru mulai, tapi aku udah seneng banget ada kamu." : "Setiap hari dari " + days + " hari itu, aku seneng banget ada kamu.";
+  })();
+
+  /* ---------- Amplop ---------- */
+  var LETTERS = [
+    ["Buka kalau kamu lagi sedih", "Sayaang, kalau kamu lagi sedih, tarik napas pelan-pelan dulu. Kamu nggak harus kuat terus. Kamu boleh nangis, boleh diem, boleh cerita. Aku mungkin jauh, dan hari ini aku lagi sibuk, tapi nanti malam telepon aku aja, aku dengerin sampai kamu lega."],
+    ["Buka kalau kamu lagi kesel", "Kalau kamu lagi kesel, keluarin aja ke aku. Mau marah-marah juga boleh, aku nggak bakal ngilang. Habis itu minum air putih dulu, ya. Aku di pihak kamu."],
+    ["Buka kalau kamu capek", "Kamu udah berusaha banget hari ini, dan aku bangga sama kamu. Hari ini boleh jadi hari istirahat. Nggak usah mikirin apa-apa, tidur lebih awal kalau bisa. Besok kita mulai lagi pelan-pelan."],
+    ["Buka kalau kamu kangen aku", "Aku juga kangen kamu, mungkin lebih banyak dari yang kamu kira. Jaraknya cuma sementara. Sambil nunggu ketemu, coba lihat foto kita, terus telepon aku. Kita ketawa bareng walau lewat layar."],
+    ["Buka kalau kamu susah tidur", "Pejamkan mata, aku di sini lewat doa dan pikiran. Nanti kalau tugasku udah selesai, kita vc sampai kamu ketiduran, aku nggak keberatan. Mimpi yang indah ya, sayang."],
+    ["Buka kalau kamu ragu sama aku", "Kalau suatu hari kamu ragu, tanya aja langsung ke aku. Aku bakal jawab jujur, tanpa nyembunyiin apa-apa. Kamu berhak ngerasa aman sama aku, itu janjiku."]
+  ];
+  var lbox = $("letters"), lb = $("letterBox"), lbtns = [];
+  LETTERS.forEach(function (l, i) {
+    var b = document.createElement("button"); b.type = "button"; b.className = "btn ghost"; b.textContent = l[0]; lbtns.push(b);
+    b.addEventListener("click", function () { lbtns.forEach(function (x) { x.classList.remove("on"); }); b.classList.add("on"); lb.textContent = l[1]; burst(); });
+    lbox.appendChild(b);
+  });
+
+  /* ---------- Ide malam ini ---------- */
+  var IDEAS = [
+    "Minum segelas air putih dulu, lalu tarik napas pelan tiga kali.",
+    "Dengerin lagu favorit kamu, terus kirim judulnya ke aku nanti pas aku selesai.",
+    "Makan sesuatu yang kamu suka. Kalau mau, pesan sendiri lewat ojol, anggap aja dari aku.",
+    "Foto sesuatu yang bikin kamu senyum hari ini, lalu kirim ke aku pas aku udah selesai.",
+    "Rebahan 10 menit tanpa HP, biarin kepala kamu istirahat.",
+    "Pilih satu film yang pengen kita tonton bareng lewat video call nanti malam.",
+    "Jalan sebentar keluar rumah dan hirup udara sore.",
+    "Catat satu hal yang bikin kamu kesel hari ini, nanti ceritain ke aku dan aku dengerin."
+  ];
+  var lastIdea = -1;
+  $("ideBtn").addEventListener("click", function () {
+    var i; do { i = (Math.random() * IDEAS.length) | 0; } while (i === lastIdea && IDEAS.length > 1);
+    lastIdea = i; $("ideBox").textContent = IDEAS[i];
+  });
+
+  /* ---------- Tebak-tebakan ---------- */
+  var JOKES = [
+    ["Kenapa kangguru selalu bawa anaknya?", "Karena kalau ditinggal, dia kangen terus. Mirip aku ke kamu."],
+    ["Apa bedanya aku sama sinyal?", "Sinyal kadang hilang, aku nggak pernah hilang dari pikiran kamu."],
+    ["Apa persamaan kamu sama kopi?", "Sama-sama bikin aku melek. Bedanya, kamu bikin aku melek sambil senyum."],
+    ["Kenapa pacarku jauh tapi terasa dekat?", "Karena jaraknya cuma kuota, hatinya selalu nyambung."],
+    ["Penyakit apa yang obatnya cuma ketemu?", "Penyakit kangen. Karena belum bisa ketemu, obat sementaranya video call dulu ya."],
+    ["Kalau kamu senyum, aku jadi kenapa?", "Jadi lupa semua hal yang bikin aku capek hari ini."]
+  ];
+  var cur = -1, shown = false;
+  $("qBtn").addEventListener("click", function () {
+    var i; do { i = (Math.random() * JOKES.length) | 0; } while (i === cur && JOKES.length > 1);
+    cur = i; shown = false; $("qBox").textContent = JOKES[i][0]; $("aBtn").hidden = false; $("qBtn").textContent = "Tebakan lain";
+  });
+  $("aBtn").addEventListener("click", function () { if (cur < 0) return; $("qBox").textContent = JOKES[cur][0] + " " + JOKES[cur][1]; $("aBtn").hidden = true; burst(); });
+
+  /* ---------- Pesan balik ---------- */
+  var NEEDS = [
+    ["Aku mau ditelepon", "Sayang, aku lagi pengen denger suara kamu. Bisa telepon aku nanti pas tugas kamu udah selesai? Aku cuma mau ditemenin."],
+    ["Aku mau cerita", "Sayang, aku lagi ada yang pengen aku ceritain. Pas kamu udah senggang, bisa dengerin aku dulu tanpa langsung ngasih solusi?"],
+    ["Aku mau dikirimin voice note", "Sayang, aku lagi pengen denger suara kamu. Kalau kamu sempat di sela tugas, kirimin aku satu voice note ya, cukup satu menit aja."],
+    ["Aku mau nonton bareng", "Sayang, aku lagi pengen nonton bareng kamu lewat video call pas kamu udah selesai tugas. Kita pilih film yuk."],
+    ["Aku mau sendiri dulu", "Sayang, aku lagi pengen sendiri dulu sebentar. Bukan karena kamu, aku cuma butuh waktu. Nanti aku kabarin kalau udah mendingan, ya."]
+  ];
+  var needs = $("needs"), nbtns = [];
+  NEEDS.forEach(function (n) {
+    var b = document.createElement("button"); b.type = "button"; b.className = "btn ghost"; b.textContent = n[0]; nbtns.push(b);
+    b.addEventListener("click", function () { nbtns.forEach(function (x) { x.classList.remove("on"); }); b.classList.add("on"); $("msg").value = n[1]; $("copy").hidden = false; $("copyNote").textContent = ""; });
+    needs.appendChild(b);
+  });
+  $("copy").addEventListener("click", function () {
+    var ta = $("msg"), text = ta.value;
+    function fallback() { ta.focus(); ta.select(); $("copyNote").textContent = "Pesannya sudah terpilih, tinggal salin lalu kirim ke aku."; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { $("copyNote").textContent = "Pesan tersalin. Tinggal tempel dan kirim ke aku."; }, fallback);
+    } else { fallback(); }
+  });
+})();
+</script>
+
+</body></html>
