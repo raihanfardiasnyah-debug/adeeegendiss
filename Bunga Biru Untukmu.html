@@ -1,0 +1,561 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bunga Biru Untukmu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Dancing+Script:wght@500;700&family=Great+Vibes&display=swap">
+<style>
+/* Layout: satu panggung gelap-biru, kelopak biru jatuh di belakang, empat halaman bergantian di depan. Kalimat muncul kata demi kata. Dipilih sengaja satu tema gelap saja. */
+:root {
+  --ink: #02030a;
+  --navy: #06123a;
+  --deep: #0a2470;
+  --blue: #2f6bff;
+  --sky: #8fc1ff;
+  --mist: #e3eeff;
+  --soft: #b4cdf5;
+  --display: "Great Vibes", "Snell Roundhand", cursive;
+  --script: "Dancing Script", "Brush Script MT", cursive;
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background-color: var(--ink);
+  background-image: linear-gradient(180deg, #000 0%, var(--ink) 18%, var(--navy) 62%, var(--deep) 100%);
+  background-attachment: fixed;
+  color: var(--mist);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  padding-block: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  overflow-x: hidden;
+}
+#rain { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.4rem;
+  padding-block: 3rem 5rem;
+  max-width: 44rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.page.enter { animation: rise .9s ease both; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+.eyebrow {
+  margin: 0;
+  font-size: .95rem;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--sky);
+}
+h1, h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  color: #fff;
+  text-wrap: balance;
+  text-shadow: 0 0 28px rgba(80, 140, 255, .55);
+}
+h1 { font-size: clamp(2.8rem, 11vw, 4.6rem); line-height: 1.05; }
+h2 { font-size: clamp(2.6rem, 9vw, 4rem); line-height: 1.1; }
+.lead { margin: 0; max-width: 30rem; font-style: italic; color: var(--soft); line-height: 1.6; }
+
+.heart { width: 22px; height: 20px; fill: var(--blue); filter: drop-shadow(0 0 8px rgba(47, 107, 255, .8)); }
+
+/* Animasi kalimat: kata muncul satu per satu */
+.w { opacity: 0; filter: blur(5px); transition: opacity .8s ease, filter .8s ease; }
+.w.on { opacity: 1; filter: none; }
+.skip {
+  position: fixed;
+  z-index: 5;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  appearance: none;
+  cursor: pointer;
+  padding: .55rem 1.3rem;
+  font: 500 1rem var(--serif);
+  letter-spacing: .06em;
+  color: var(--mist);
+  background: rgba(6, 18, 58, .85);
+  border: 1px solid rgba(143, 193, 255, .5);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+}
+.skip:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+
+/* Buket */
+.bouquet { width: min(72vw, 300px); height: auto; animation: sway 6s ease-in-out infinite alternate; filter: drop-shadow(0 18px 30px rgba(20, 60, 190, .45)); }
+@keyframes sway { from { transform: translateY(0) rotate(-.8deg); } to { transform: translateY(-8px) rotate(.8deg); } }
+
+/* Gerbang sandi */
+.gate { display: flex; flex-direction: column; align-items: center; gap: .9rem; width: 100%; }
+.gate label { font-size: 1.05rem; color: var(--soft); letter-spacing: .04em; }
+.field { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; width: 100%; }
+.gate input {
+  width: min(100%, 17rem);
+  padding: .8rem 1rem;
+  font: 600 1.5rem/1 var(--serif);
+  letter-spacing: .5em;
+  text-align: center;
+  color: #fff;
+  background: rgba(6, 18, 58, .6);
+  border: 1px solid rgba(143, 193, 255, .45);
+  border-radius: 999px;
+  outline: none;
+}
+.gate input::placeholder { color: rgba(180, 205, 245, .4); letter-spacing: .3em; }
+.gate input:focus-visible { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(47, 107, 255, .45); }
+.gate.shake .field { animation: shake .45s; }
+@keyframes shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+.msg { min-height: 1.5em; margin: 0; font-size: 1.05rem; color: #ffb3c8; }
+.hint { margin: 0; font-size: 1rem; font-style: italic; color: var(--soft); }
+
+.btn {
+  appearance: none;
+  cursor: pointer;
+  padding: .8rem 2rem;
+  font: 600 1.15rem/1 var(--serif);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #2f6bff, #1c45c9);
+  border: 1px solid rgba(143, 193, 255, .6);
+  border-radius: 999px;
+  box-shadow: 0 0 24px rgba(47, 107, 255, .45);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 0 34px rgba(80, 140, 255, .7); }
+.btn:focus-visible, .link:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+.link {
+  appearance: none; cursor: pointer; background: none; border: 0;
+  font: 500 1.05rem var(--serif); color: var(--soft); text-decoration: underline; text-underline-offset: 4px;
+}
+.nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.4rem; margin-top: .6rem; }
+
+/* Teks panjang */
+.whisper { display: flex; flex-direction: column; gap: 1.1rem; max-width: 34rem; font-style: italic; color: var(--soft); line-height: 1.85; font-size: clamp(1.15rem, 3.6vw, 1.35rem); margin-top: .8rem; }
+.whisper p { margin: 0; text-wrap: pretty; }
+
+.letter { display: flex; flex-direction: column; gap: 1.3rem; text-align: left; line-height: 1.85; font-size: clamp(1.18rem, 3.6vw, 1.4rem); }
+.letter p { margin: 0; max-width: 62ch; text-wrap: pretty; }
+.letter .sign { font-family: var(--script); font-size: 1.8rem; color: var(--sky); text-align: right; margin-top: .6rem; }
+.divider { display: flex; align-items: center; gap: 1rem; color: var(--sky); }
+.divider::before, .divider::after { content: ""; width: 3.5rem; height: 1px; background: linear-gradient(90deg, transparent, var(--sky)); }
+.divider::after { transform: scaleX(-1); }
+
+.thanks { display: flex; flex-direction: column; gap: 1.4rem; line-height: 1.85; font-size: clamp(1.18rem, 3.8vw, 1.4rem); max-width: 36rem; }
+.thanks p { margin: 0; text-wrap: pretty; }
+.thanks b { color: #fff; font-weight: 600; }
+.big-thanks { font-family: var(--script); font-weight: 700; font-size: clamp(1.7rem, 6.6vw, 2.8rem); line-height: 1.3; color: var(--sky); text-shadow: 0 0 22px rgba(80, 140, 255, .6); overflow-wrap: anywhere; }
+
+/* I Love You */
+.ily { font-family: var(--display); font-weight: 400; font-size: clamp(5rem, 26vw, 18rem); line-height: .95; color: #fff; margin: 0; text-wrap: balance; text-shadow: 0 0 40px rgba(80, 140, 255, .75), 0 0 90px rgba(47, 107, 255, .45); }
+.ily-sub { margin: 0; max-width: 34rem; font-family: var(--script); font-weight: 500; font-size: clamp(1.35rem, 4.4vw, 2.1rem); line-height: 1.5; color: var(--soft); overflow-wrap: anywhere; }
+.date { margin: 0; font-size: .95rem; letter-spacing: .4em; color: var(--sky); }
+
+.dots { display: flex; gap: .55rem; justify-content: center; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(143, 193, 255, .3); }
+.dots i.on { background: var(--sky); box-shadow: 0 0 10px var(--sky); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bouquet, .page.enter, .gate.shake .field { animation: none; }
+  .btn { transition: none; }
+  .w { transition: none; filter: none; }
+}
+</style>
+
+<canvas id="rain" aria-hidden="true"></canvas>
+<button class="skip" id="skip" type="button" hidden>Tampilkan semua</button>
+
+<!-- HALAMAN 1: buket + sandi + kalimat romantis -->
+<section class="page" id="p1" data-follow="0" aria-label="Halaman pembuka">
+  <p class="eyebrow rv" data-speed="160">Khusus untukmu</p>
+  <h1 class="rv" data-speed="320">Sebuah bunga untukmu</h1>
+
+  <svg class="bouquet" viewBox="0 0 320 400" role="img" aria-label="Buket bunga biru dengan pembungkus hitam">
+    <defs>
+      <radialGradient id="pg" cx="50%" cy="85%" r="85%">
+        <stop offset="0%" stop-color="#cfe4ff"/>
+        <stop offset="55%" stop-color="#4a86ff"/>
+        <stop offset="100%" stop-color="#1c45c9"/>
+      </radialGradient>
+      <linearGradient id="wrap" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#14151f"/>
+        <stop offset="100%" stop-color="#050509"/>
+      </linearGradient>
+      <g id="fl">
+        <g fill="url(#pg)" stroke="#183a9e" stroke-opacity=".4" stroke-width=".8">
+          <ellipse cx="0" cy="-15" rx="10.5" ry="16"/>
+          <ellipse cx="0" cy="-15" rx="10.5" ry="16" transform="rotate(72)"/>
+          <ellipse cx="0" cy="-15" rx="10.5" ry="16" transform="rotate(144)"/>
+          <ellipse cx="0" cy="-15" rx="10.5" ry="16" transform="rotate(216)"/>
+          <ellipse cx="0" cy="-15" rx="10.5" ry="16" transform="rotate(288)"/>
+        </g>
+        <circle r="6" fill="#eaf4ff"/>
+        <circle r="2.6" fill="#7fb0ff"/>
+      </g>
+    </defs>
+
+    <!-- daun -->
+    <g fill="#0e2c46" stroke="#1d4a73" stroke-width="1">
+      <ellipse cx="62" cy="150" rx="12" ry="40" transform="rotate(-58 62 150)"/>
+      <ellipse cx="258" cy="150" rx="12" ry="40" transform="rotate(58 258 150)"/>
+      <ellipse cx="96" cy="70" rx="11" ry="36" transform="rotate(-32 96 70)"/>
+      <ellipse cx="224" cy="70" rx="11" ry="36" transform="rotate(32 224 70)"/>
+      <ellipse cx="160" cy="38" rx="10" ry="30"/>
+    </g>
+
+    <!-- bunga -->
+    <use href="#fl" transform="translate(160 64) scale(1)"/>
+    <use href="#fl" transform="translate(104 90) rotate(14) scale(1.05)"/>
+    <use href="#fl" transform="translate(216 90) rotate(-10) scale(1.05)"/>
+    <use href="#fl" transform="translate(62 134) rotate(30) scale(.95)"/>
+    <use href="#fl" transform="translate(258 134) rotate(-24) scale(.95)"/>
+    <use href="#fl" transform="translate(112 142) rotate(8) scale(1.1)"/>
+    <use href="#fl" transform="translate(208 142) rotate(-16) scale(1.1)"/>
+    <use href="#fl" transform="translate(160 112) rotate(20) scale(1.3)"/>
+    <use href="#fl" transform="translate(160 158) rotate(-6) scale(1)"/>
+
+    <!-- pembungkus hitam -->
+    <path d="M58 168 Q160 148 262 168 L168 372 Q160 382 152 372 Z" fill="url(#wrap)" stroke="#2a3f7a" stroke-width="1.6"/>
+    <path d="M58 168 L152 372 L162 296 Z" fill="#171826" opacity=".9"/>
+    <path d="M58 168 Q160 192 262 168" fill="none" stroke="#2f4a96" stroke-width="1.4"/>
+    <path d="M110 190 L156 356 M210 190 L166 356" stroke="#1d2b55" stroke-width="1" fill="none"/>
+
+    <!-- pita biru -->
+    <g fill="#2f6bff" stroke="#9cc8ff" stroke-opacity=".6" stroke-width="1">
+      <path d="M160 238 C118 206 104 256 160 246 Z"/>
+      <path d="M160 238 C202 206 216 256 160 246 Z"/>
+      <path d="M158 246 L136 296 L153 288 L160 302 Z"/>
+      <path d="M162 246 L184 296 L167 288 L160 302 Z"/>
+      <circle cx="160" cy="242" r="8"/>
+    </g>
+  </svg>
+
+  <p class="lead rv" data-speed="150">Satu buket yang tidak akan layu, dari hati yang mencintaimu.</p>
+
+  <form class="gate" id="gate" autocomplete="off">
+    <label for="pw">Masukkan sandi untuk membuka</label>
+    <div class="field">
+      <input id="pw" name="pw" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="••••••••" aria-describedby="hint msg">
+      <button class="btn" type="submit">Buka</button>
+    </div>
+    <p id="hint" class="hint">Petunjuk: tanggal kita jadian, tulis dengan format hhbbtttt.</p>
+    <p id="msg" class="msg" role="status" aria-live="polite"></p>
+  </form>
+
+  <div class="whisper">
+    <p class="rv" data-speed="85">Malam ini aku petik bunga paling biru yang bisa kutemukan, sebiru langit yang menaungi kita berdua, dan kuberikan seluruhnya hanya untukmu.</p>
+    <p class="rv" data-speed="85">Setiap kelopaknya membawa satu hal yang selama ini ingin kuucapkan: terima kasih karena kamu ada, dan terima kasih karena kamu memilihku.</p>
+    <p class="rv" data-speed="85">Biru adalah warna yang tenang dan dalam, dan begitulah perasaanku kepadamu. Tidak berisik, tidak terburu-buru, tapi tidak pernah berhenti.</p>
+    <p class="rv" data-speed="85">Hitam yang membungkus buket ini adalah janjiku untuk melindungimu, menjagamu dari hal-hal yang membuatmu sedih, sekuat yang aku mampu.</p>
+    <p class="rv" data-speed="85">Bunga-bunga yang jatuh di sekelilingmu itu mewakili hari-hari indah yang ingin aku berikan, satu demi satu, tanpa pernah habis.</p>
+    <p class="rv" data-speed="85">Aku tahu kita baru memulai, tapi hatiku sudah yakin sejak lama, dan aku ingin kamu merasakan keyakinan itu di setiap kata dalam website ini.</p>
+    <p class="rv" data-speed="85">Sekarang, ketikkan sandi yang hanya kita berdua yang tahu, lalu masuklah. Ada banyak isi hatiku yang menunggumu di dalam.</p>
+  </div>
+</section>
+
+<!-- HALAMAN 2: surat cinta -->
+<section class="page" id="p2" data-follow="1" hidden aria-label="Surat cinta">
+  <p class="eyebrow rv" data-speed="160">Dari hatiku</p>
+  <h2 class="rv" data-speed="300">Untukmu, Sayang</h2>
+  <div class="divider"><svg class="heart" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5 15.5 1 12 1 7.5 1 4.4 3.4 2 6.5 2c2 0 3.9 1 5.5 3C13.6 3 15.5 2 17.5 2 20.6 2 23 4.4 23 7.5 23 12 19 15.5 12 21z"/></svg></div>
+
+  <div class="letter">
+    <p class="rv">Sayang, kalau kamu sedang membaca ini, aku ingin kamu tahu satu hal sebelum yang lain: semua kata di halaman ini aku tulis dengan hati yang paling jujur. Tidak ada yang dilebih-lebihkan, tidak ada yang sekadar manis di bibir. Sejak tanggal 14 November 2026, ketika kamu bilang iya, hidupku terasa punya arah yang baru, dan aku ingin menjelaskan kenapa itu begitu berarti buatku.</p>
+
+    <p class="rv">Aku mencintaimu, sayang. Bukan cinta yang datang karena sedang kesepian atau sekadar ingin ada yang menemani. Aku mencintaimu karena caramu tersenyum, caramu bicara, caramu peduli, dan caramu membuat hari yang berat terasa jauh lebih ringan. Ada banyak hal kecil darimu yang diam-diam aku simpan, dan semuanya membuatku jatuh cinta lebih dalam dari hari ke hari.</p>
+
+    <p class="rv">Aku tahu kita baru memulai, dan aku tidak akan berpura-pura bahwa semuanya akan selalu mudah. Tapi aku ingin kamu yakin bahwa perasaanku bukan main-main. Aku tidak sedang mencoba-coba, aku tidak sedang mencari tempat singgah. Aku datang kepadamu dengan niat yang serius, dengan hati yang sudah memilih, dan pilihan itu adalah kamu.</p>
+
+    <p class="rv">Keseriusanku bukan hanya lewat kata. Aku ingin membuktikannya lewat sikap: jujur saat keadaan sulit, setia saat godaan datang, sabar saat kita berbeda pendapat, dan tetap tinggal saat semuanya tidak sedang baik. Kalau suatu hari kamu ragu, tolong buka lagi halaman ini, dan ingat bahwa aku sudah berjanji dengan sungguh-sungguh.</p>
+
+    <p class="rv">Aku ingin menjadi orang pertama yang kamu cari saat kamu bahagia, dan orang pertama yang ada saat kamu sedih. Menangislah di depanku tanpa takut, ceritakan semua yang kamu pikirkan, dan aku akan mendengarkan dengan sepenuh hati. Kamu tidak perlu menjadi sempurna untukku. Kamu cukup menjadi dirimu sendiri, karena itulah yang aku cintai.</p>
+
+    <p class="rv">Aku juga sedang belajar menjadi laki-laki yang lebih baik, demi kamu dan demi kita. Aku ingin tumbuh bersamamu, memperbaiki yang masih kurang, dan menjaga yang sudah indah. Kalau suatu saat aku salah, aku mau mengakuinya dan memperbaikinya, bukan menghindar. Kamu pantas mendapatkan seseorang yang berani bertanggung jawab atas perasaannya.</p>
+
+    <p class="rv">Aku membayangkan masa depan yang sederhana tapi hangat: obrolan panjang yang tidak ada habisnya, tawa di hal-hal receh, dan tangan yang saling menggenggam saat dunia terasa berat. Dan di setiap gambaran itu, selalu ada kamu. Aku tidak bisa membayangkan masa depan yang aku inginkan tanpa kamu di dalamnya.</p>
+
+    <p class="rv">Kalau kamu bertanya seberapa yakin aku, jawabannya: seyakin matahari yang akan terbit lagi besok pagi. Aku tidak mencintaimu setengah-setengah. Aku mencintaimu sepenuh hati, dan aku serius ingin menjalani semuanya bersamamu, pelan-pelan, selangkah demi selangkah, sampai kita sampai di tempat yang kita impikan berdua.</p>
+
+    <p class="rv">Sayang, kamu bukan sekadar bagian dari hari-hariku. Kamu sudah menjadi tempat yang paling ingin aku tuju untuk pulang. Aku akan menjaga hatimu seperti menjaga sesuatu yang paling berharga, karena memang begitulah kamu bagiku. Aku bersungguh-sungguh. Aku mencintaimu, dan aku tidak akan pergi.</p>
+
+    <p class="sign rv" data-speed="160">Dengan seluruh hatiku.</p>
+  </div>
+
+  <div class="nav">
+    <button class="link" type="button" data-go="0">Kembali</button>
+    <button class="btn" type="button" data-go="2">Lanjut</button>
+  </div>
+  <div class="dots" aria-hidden="true"><i></i><i class="on"></i><i></i><i></i></div>
+</section>
+
+<!-- HALAMAN 3: terima kasih -->
+<section class="page" id="p3" data-follow="1" hidden aria-label="Ucapan terima kasih">
+  <p class="eyebrow rv" data-speed="160">Dari lubuk hati</p>
+  <h2 class="rv" data-speed="300">Terima kasih, Sayang</h2>
+  <div class="divider"><svg class="heart" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5 15.5 1 12 1 7.5 1 4.4 3.4 2 6.5 2c2 0 3.9 1 5.5 3C13.6 3 15.5 2 17.5 2 20.6 2 23 4.4 23 7.5 23 12 19 15.5 12 21z"/></svg></div>
+
+  <div class="thanks">
+    <p class="rv">Terima kasih sudah <b>menerimaku</b>, sayang. Terima kasih sudah membuka hatimu dan memberiku kesempatan untuk ada di sisimu. Aku tahu menerima seseorang bukan hal kecil, dan aku tidak akan pernah menyia-nyiakan kepercayaan itu.</p>
+    <p class="rv">Terima kasih sudah mau menjadi <b>pasangan hidupku</b>. Dengan kamu di sampingku, aku merasa tidak lagi berjalan sendirian. Aku ingin kita melangkah bersama, apa pun yang menunggu di depan sana, entah itu hari yang cerah atau hari yang penuh ujian.</p>
+    <p class="rv">Dan terima kasih sudah <b>meyakinkanku</b> bahwa kamu juga mencintaiku. Kata-katamu, perhatianmu, dan caramu selalu hadir membuatku tidak lagi ragu. Itu hadiah terindah yang pernah aku terima, dan akan selalu aku jaga.</p>
+    <p class="rv">Terima kasih untuk kesabaranmu. Aku tahu aku belum sempurna, dan ada saat-saat aku masih belajar. Tapi kamu tetap tinggal, tetap tersenyum, dan tetap memberiku ruang untuk tumbuh menjadi lebih baik.</p>
+    <p class="rv">Terima kasih untuk tawamu yang membuat hariku terang, untuk suaramu yang membuatku tenang, dan untuk setiap perhatian kecil yang mungkin tidak kamu sadari, tapi selalu membuat hatiku hangat.</p>
+    <p class="rv">Terima kasih karena sudah mempercayaiku dengan hatimu. Aku tahu itu hal yang paling berharga yang bisa kamu berikan, dan aku berjanji akan menjaganya sepenuh jiwa.</p>
+    <p class="rv">Terima kasih karena kamu membuatku ingin menjadi laki-laki yang lebih baik setiap hari: lebih jujur, lebih sabar, lebih setia, dan lebih berani mencintai dengan sungguh-sungguh.</p>
+    <p class="rv">Terima kasih untuk semuanya, hari ini dan seterusnya. Aku bersyukur sekali bahwa dari sekian banyak orang di dunia ini, kamu yang menjadi rumah bagi hatiku.</p>
+    <p class="big-thanks rv" data-speed="150">Makasihhh banyaaaaa yaaa sayaangggg</p>
+  </div>
+
+  <div class="nav">
+    <button class="link" type="button" data-go="1">Kembali</button>
+    <button class="btn" type="button" data-go="3">Lanjut</button>
+  </div>
+  <div class="dots" aria-hidden="true"><i></i><i></i><i class="on"></i><i></i></div>
+</section>
+
+<!-- HALAMAN 4: I love you -->
+<section class="page" id="p4" data-follow="1" hidden aria-label="Penutup">
+  <h2 class="ily rv" data-speed="450">I Love You</h2>
+  <p class="ily-sub rv" data-speed="140">Aku mencintaimuuuu selaluuuu yaaa sayaangggg, makasihhh banyaaaaa yaaa sayaangggg</p>
+
+  <div class="thanks">
+    <p class="rv">Aku mau kamu dengar ini sekali lagi, pelan-pelan: aku mencintaimu. Bukan hanya hari ini, tapi di hari-hari yang akan datang, di hari yang cerah maupun saat hujan turun.</p>
+    <p class="rv">Aku mencintaimu saat kamu tertawa lepas, dan aku juga mencintaimu saat kamu lelah dan hanya ingin diam. Semua sisimu aku terima dengan hati yang lapang.</p>
+    <p class="rv">Apa pun yang terjadi nanti, aku ingin kita menghadapinya berdua. Kalau ada masalah, kita bicarakan. Kalau ada yang salah, kita perbaiki bersama. Aku tidak akan memilih pergi.</p>
+    <p class="rv">Aku berjanji akan terus belajar mencintaimu dengan cara yang paling kamu butuhkan, bukan hanya dengan cara yang paling mudah buatku.</p>
+    <p class="rv">Setiap pagi aku ingin bangun dengan rasa syukur karena memilikimu, dan setiap malam aku ingin menutup hari dengan memikirkan kamu.</p>
+    <p class="rv">Kamu adalah sesuatu yang diam-diam selalu aku harapkan, dan sekarang kamu ada di sisiku. Aku tidak akan menyia-nyiakannya, tidak sekali pun.</p>
+    <p class="rv">Jadi sekali lagi, sayang, dengarkan baik-baik: aku sangat sangat mencintaimu, aku serius denganmu, dan aku akan selalu ada untukmu. Selalu.</p>
+  </div>
+
+  <p class="date rv" data-speed="260">14 · 11 · 2026</p>
+
+  <div class="nav">
+    <button class="link" type="button" data-go="2">Kembali</button>
+    <button class="link" type="button" data-go="0">Ulangi dari awal</button>
+  </div>
+  <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i class="on"></i></div>
+</section>
+
+<script>
+(function () {
+  var PASS = "14112026";
+  var pages = Array.prototype.slice.call(document.querySelectorAll(".page"));
+  var skipBtn = document.getElementById("skip");
+  var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Animasi kalimat: kata muncul satu per satu ---------- */
+  var timers = [];
+  var userUp = false;
+  var lastY = 0;
+  var lastScrollAt = 0;
+  var currentWords = [];
+
+  function clearTimers() {
+    timers.forEach(clearTimeout);
+    timers = [];
+  }
+
+  function prep(page) {
+    if (page._prep) return;
+    page._prep = true;
+    Array.prototype.forEach.call(page.querySelectorAll(".rv"), function (el) {
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(function (node) {
+        var parts = node.nodeValue.split(/(\s+)/);
+        var frag = document.createDocumentFragment();
+        parts.forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(" "));
+          } else {
+            var s = document.createElement("span");
+            s.className = "w";
+            s.textContent = part;
+            frag.appendChild(s);
+          }
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+    });
+  }
+
+  function showAll(page) {
+    Array.prototype.forEach.call(page.querySelectorAll(".w"), function (w) { w.classList.add("on"); });
+    skipBtn.hidden = true;
+  }
+
+  function follow(w) {
+    var now = Date.now();
+    if (userUp || now - lastScrollAt < 700) return;
+    var r = w.getBoundingClientRect();
+    if (r.bottom > window.innerHeight * 0.82) {
+      lastScrollAt = now;
+      window.scrollBy({ top: r.bottom - window.innerHeight * 0.6, behavior: "smooth" });
+    }
+  }
+
+  function play(page) {
+    clearTimers();
+    prep(page);
+    var words = Array.prototype.slice.call(page.querySelectorAll(".w"));
+    currentWords = words;
+    if (calm || page._played) { showAll(page); return; }
+    page._played = true;
+    var follows = page.getAttribute("data-follow") === "1";
+    var t = 350;
+    words.forEach(function (w) {
+      var host = w.closest(".rv");
+      var speed = parseInt(host && host.getAttribute("data-speed"), 10) || 55;
+      var at = t;
+      timers.push(setTimeout(function () {
+        w.classList.add("on");
+        if (follows) follow(w);
+      }, at));
+      t += speed;
+      if (/[.!?]$/.test(w.textContent)) t += 260;
+      else if (/[,:;]$/.test(w.textContent)) t += 110;
+    });
+    timers.push(setTimeout(function () { skipBtn.hidden = true; }, t + 800));
+    skipBtn.hidden = false;
+  }
+
+  skipBtn.addEventListener("click", function () {
+    clearTimers();
+    pages.forEach(function (p) { if (!p.hidden) showAll(p); });
+  });
+
+  window.addEventListener("scroll", function () {
+    var y = window.scrollY;
+    if (y < lastY - 4) userUp = true;
+    lastY = y;
+  }, { passive: true });
+
+  /* ---------- Pindah halaman ---------- */
+  function show(i) {
+    clearTimers();
+    userUp = false;
+    pages.forEach(function (p, k) { p.hidden = k !== i; p.classList.remove("enter"); });
+    var cur = pages[i];
+    void cur.offsetWidth;
+    cur.classList.add("enter");
+    window.scrollTo(0, 0);
+    lastY = 0;
+    play(cur);
+  }
+
+  var gate = document.getElementById("gate");
+  var pw = document.getElementById("pw");
+  var msg = document.getElementById("msg");
+
+  gate.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (pw.value.replace(/\s/g, "") === PASS) {
+      msg.textContent = "";
+      pw.value = "";
+      show(1);
+    } else {
+      msg.textContent = "Sandinya belum tepat. Coba ingat hari kita jadian ya, sayang.";
+      gate.classList.remove("shake");
+      void gate.offsetWidth;
+      gate.classList.add("shake");
+      pw.focus();
+    }
+  });
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-go]");
+    if (t) show(parseInt(t.getAttribute("data-go"), 10));
+  });
+
+  /* ---------- Bunga biru berjatuhan ---------- */
+  var cv = document.getElementById("rain");
+  var cx = cv.getContext("2d");
+  var W = 0, H = 0, list = [];
+  var COLORS = ["#9cc8ff", "#5b95ff", "#2f6bff", "#79b0ff", "#b9d6ff"];
+
+  function make(initial) {
+    return {
+      x: Math.random() * W,
+      y: initial ? Math.random() * H : -30,
+      s: 7 + Math.random() * 16,
+      v: 0.35 + Math.random() * 0.9,
+      sw: Math.random() * Math.PI * 2,
+      sws: 0.004 + Math.random() * 0.012,
+      amp: 0.3 + Math.random() * 0.7,
+      r: Math.random() * Math.PI * 2,
+      rv: (Math.random() - 0.5) * 0.02,
+      a: 0.35 + Math.random() * 0.55,
+      c: COLORS[(Math.random() * COLORS.length) | 0]
+    };
+  }
+
+  function size() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = W < 600 ? 34 : 60;
+    list = [];
+    for (var i = 0; i < n; i++) list.push(make(true));
+  }
+
+  function flower(f) {
+    cx.save();
+    cx.translate(f.x, f.y);
+    cx.rotate(f.r);
+    cx.globalAlpha = f.a;
+    cx.fillStyle = f.c;
+    for (var k = 0; k < 5; k++) {
+      cx.rotate((Math.PI * 2) / 5);
+      cx.beginPath();
+      cx.ellipse(0, -f.s * 0.55, f.s * 0.34, f.s * 0.55, 0, 0, Math.PI * 2);
+      cx.fill();
+    }
+    cx.fillStyle = "#eaf4ff";
+    cx.beginPath();
+    cx.arc(0, 0, f.s * 0.18, 0, Math.PI * 2);
+    cx.fill();
+    cx.restore();
+  }
+
+  function frame() {
+    cx.clearRect(0, 0, W, H);
+    for (var i = 0; i < list.length; i++) {
+      var f = list[i];
+      flower(f);
+      if (!calm) {
+        f.y += f.v; f.x += Math.sin(f.sw) * f.amp; f.sw += f.sws; f.r += f.rv;
+        if (f.y > H + 30) { list[i] = make(false); }
+      }
+    }
+    if (!calm) requestAnimationFrame(frame);
+  }
+
+  size();
+  frame();
+  window.addEventListener("resize", function () { size(); if (calm) frame(); });
+
+  /* Mulai dari halaman pertama */
+  play(pages[0]);
+})();
+</script>
+
+</body></html>
